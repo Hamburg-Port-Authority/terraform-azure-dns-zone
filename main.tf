@@ -34,4 +34,18 @@ resource "azurerm_dns_a_record" "main" {
   resource_group_name = var.resource_group_name
   ttl                 = each.value.ttl
   records             = each.value.records
+
+  tags = var.tags
+}
+
+
+resource "azurerm_dns_ns_record" "main" {
+  for_each            = var.ns_records_disabled ? {} : var.ns_records
+  name                = each.value.name
+  zone_name           = azurerm_dns_zone.main.name
+  resource_group_name = var.resource_group_name
+  ttl                 = each.value.ttl
+  records             = each.value.records
+
+  tags = var.tags
 }

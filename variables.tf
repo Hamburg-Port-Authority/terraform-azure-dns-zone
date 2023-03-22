@@ -168,6 +168,65 @@ variable "a_records" {
     EOT
 }
 
+variable "ns_records_disabled" {
+
+  type        = bool
+  description = "By default no NS record is expected, so it is disabled."
+  default     = true
+
+}
+variable "ns_records" {
+
+  type = map(object({
+
+    name    = string
+    ttl     = string
+    records = list(string)
+
+  }))
+
+  default = {}
+
+
+  description = <<-EOT
+
+    The following shows the possible configuration of A Record by the terraform provider:
+
+    name - (Required) The name of the DNS A Record.
+    resource_group_name - (Required) Specifies the resource group where the DNS Zone (parent resource) exists. Changing this forces a new resource to be created.
+    zone_name - (Required) Specifies the DNS Zone where the resource exists. Changing this forces a new resource to be created.
+    ttl - (Required) The Time To Live (TTL) of the DNS record in seconds.
+    records - (Optional) List of IPv4 Addresses. Conflicts with target_resource_id.
+    target_resource_id - (Optional) The Azure resource id of the target object. Conflicts with records.
+
+    For further details see: https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/dns_a_record#zone_name
+
+    Example of variable use:
+
+    variable "a_records" {
+
+      type = map(object({
+
+        name    = string
+        ttl     = string
+        records = list(string)
+        tags    = map(string)
+      }))
+
+      default = {
+        "default_example" = {
+          name    = "default"
+          ttl     = "300"
+          records = ["10.0.180.17"]
+          tags = {
+            "default" = "true"
+          }
+      }
+    }
+
+    EOT
+}
+
 
 variable "tags" {
   type        = map(string)
