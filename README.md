@@ -7,7 +7,7 @@ The module is used to deploy azure public dns zone over terraform with a default
 # Example Use of Module:
 
     module "dns_zone" {
-    source              = "github.com/la-cc/terraform-azure-dns-zone?ref=1.0.0"
+    source              = "github.com/Hamburg-Port-Authority/terraform-azure-dns-zone?ref=1.0.1"
 
     name                = var.name
     resource_group_name = var.resource_group_name
